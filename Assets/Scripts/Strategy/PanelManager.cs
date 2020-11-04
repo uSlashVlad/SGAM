@@ -27,7 +27,11 @@ public class PanelManager : MonoBehaviour
         panelsContainerAnimator.SetBool(Visible, true); // Starts the animation
         panelsContainer.blocksRaycasts = true; // For interactions with panels, not with "buildings" cards in menu
         panelContents[number].SetActive(true); // Activating requested panel
-        factoriesController.UpdatePanelStats(number); // Updating values of ui elements on this panel
+        
+        // Updating values of ui elements on this panel
+        // It do nothing if number is more or equal to factories count
+        factoriesController.UpdatePanelStats(number);
+        
         _lastNum = number; // Saving for future closing
     }
 

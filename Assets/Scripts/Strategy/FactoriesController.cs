@@ -67,6 +67,9 @@ public class FactoriesController : MonoBehaviour
 
     public void UpdatePanelStats(int num)
     {
+        // For cases when u open panel of non-factory building
+        if (num >= _factories.Length) return;
+
         var factory = _factories[num];
         // For smth like "1 energy/minute"
         var genType = (factory.TypeId == 0) ? "energy" :
