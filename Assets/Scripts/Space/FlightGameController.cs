@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FlightGameController : MonoBehaviour
 {
+    // Directional enums for some functions associated with ship direction
     private enum ShipDirVertical
     {
         Up,
@@ -20,36 +17,41 @@ public class FlightGameController : MonoBehaviour
         Middle
     };
 
+    /// Contains ship object's transform from scene
     [SerializeField] private Transform shipTransform;
 
-    // Wind moves and rotate horizontally from left to right
-    // Plus is ->   Minus is <-
+    /// Wind moves and rotate horizontally from left to right
+    /// Plus is to right   Minus is to left
     [Space] [SerializeField] private float startWind;
 
-    // Decreases vertical acceleration
+    /// Decreases vertical acceleration
     [SerializeField] private float gravitation = 9;
 
-    // Deceases rotation acceleration
+    /// Decreases rotation acceleration and ship speed
     [Range(0, 1)] [SerializeField] private float startAirResistance = 0.1f;
-    [SerializeField] private float horizontalStabilizationK = 0.01f;
 
+    // Variables for storing current ship status
     [Space] [SerializeField] private float rotationSpeedCurrent;
     [SerializeField] private float verticalSpeedCurrent;
     [SerializeField] private float horizontalSpeedCurrent;
     [SerializeField] private float currentWind;
     [SerializeField] private float currentAirResistance;
 
+    /// Passed path. Starts from zero
     [Space] [Range(-0.1f, 1)] [SerializeField]
-    private float verticalPath; // In percentages
+    private float verticalPath;
 
+    // Variables for vertical path and offset
     [SerializeField] private float currentHeight;
     [SerializeField] private float maxHeight = 10000;
     [SerializeField] private float currentOffset;
     [SerializeField] private float maxOffset = 200;
 
+    // User input
     [Space] [SerializeField] private float rotationAccelerationInput;
     [SerializeField] private float shipAccelerationInput;
 
+    // Sky color
     [Space] [SerializeField] private Camera cam;
     [SerializeField] private Gradient skyGradient;
 
@@ -59,12 +61,7 @@ public class FlightGameController : MonoBehaviour
     {
         RotationProcessing();
         MovementProcessing();
-
-        verticalPath = currentHeight / maxHeight;
-        var reversedProgress = 1 - Mathf.Clamp01(verticalPath);
-        currentWind = startWind * reversedProgress;
-        currentAirResistance = startAirResistance * reversedProgress;
-        cam.backgroundColor = skyGradient.Evaluate(Mathf.Clamp01(verticalPath));
+        LateCalculations();
 
         interfaceController.InterfaceUpdate(
             heightValue: verticalPath,
@@ -76,8 +73,8 @@ public class FlightGameController : MonoBehaviour
     {
         // Main control
         var horizontalAxis = Input.GetAxis("Horizontal");
-        rotationSpeedCurrent +=
-            horizontalAxis * rotationAccelerationInput * (1 - currentAirResistance) * Time.fixedDeltaTime;
+        rotationSpeedCurrent += horizontalAxis * rotationAccelerationInput * (1 - currentAirResistance) *
+                                Time.fixedDeltaTime;
 
         // Rotation from wind
         // If ship targeted up wind will increase rotation acceleration
@@ -99,7 +96,8 @@ public class FlightGameController : MonoBehaviour
         var shipRotation = shipEulerRotation * Mathf.PI / 180;
 
         verticalSpeedCurrent +=
-            (shipAccelerationInput * Mathf.Cos(shipRotation) - gravitation) * Time.fixedDeltaTime * (1 - currentAirResistance);
+            (shipAccelerationInput * Mathf.Cos(shipRotation) - gravitation) * Time.fixedDeltaTime *
+            (1 - currentAirResistance);
 
         var shipDir = ShipTargetDirectionHorizontal();
         if (shipDir == ShipDirHorizontal.Left)
@@ -112,7 +110,16 @@ public class FlightGameController : MonoBehaviour
         currentHeight += verticalSpeedCurrent * Time.fixedDeltaTime;
         currentOffset += horizontalSpeedCurrent * Time.fixedDeltaTime;
         //
-        horizontalSpeedCurrent *= 1 - horizontalStabilizationK;
+        horizontalSpeedCurrent *= 1 - (currentAirResistance / 10);
+    }
+
+    private void LateCalculations()
+    {
+        verticalPath = currentHeight / maxHeight;
+        var reversedProgress = 1 - Mathf.Clamp01(verticalPath);
+        currentWind = startWind * reversedProgress;
+        currentAirResistance = startAirResistance * reversedProgress;
+        cam.backgroundColor = skyGradient.Evaluate(Mathf.Clamp01(verticalPath));
     }
 
     private ShipDirVertical ShipTargetDirectionVertical()

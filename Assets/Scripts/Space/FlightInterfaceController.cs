@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class FlightInterfaceController : MonoBehaviour
 {
+    /// Contains height indicator base line's transform
     [SerializeField] private RectTransform verticalLine;
+
+    /// Contains offset indicator base line's transform
     [SerializeField] private RectTransform horizontalLine;
 
     private float _verticalLineHeight;
     private float _horizontalLineWidth;
 
+    /// Contains line's marks transforms
     [SerializeField] private RectTransform[] marks;
+
     private float _mainHorizontalMarkDistance;
     private float _sectionVerticalHeight;
 
+    // Icons on lines
     [SerializeField] private RectTransform heightShipIcon;
     [SerializeField] private RectTransform offsetShipIcon;
 
@@ -53,6 +55,7 @@ public class FlightInterfaceController : MonoBehaviour
 
     private float CalculateHorizontalPosition(float value)
     {
+        // Handling cases when ship goes horizontally far away from start
         if (value <= -1.25f)
             return -_horizontalLineWidth / 2;
         if (value >= 1.25f)
