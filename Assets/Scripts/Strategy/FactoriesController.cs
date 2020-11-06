@@ -35,8 +35,17 @@ public class FactoriesController : MonoBehaviour
     /// Just for outputting resources amount to player
     [SerializeField] private Text[] resourceInds;
 
+    [SerializeField] private SaveHandler saveHandler;
+
     private void Start()
     {
+        var storedValues = saveHandler.LoadResValue();
+        resEnergy = storedValues[0];
+        resMetal = storedValues[1];
+        resCrystals = storedValues[2];
+        resResearches = storedValues[3];
+        resMoney = storedValues[4];
+
         // Initialization for indicators on bottom panel
         UpdateResources();
         // Starting coroutine for incrementing resources
@@ -104,6 +113,16 @@ public class FactoriesController : MonoBehaviour
             resCrystals += _factories[2].GetGeneration / 60f;
             resResearches += _factories[3].GetGeneration / 60f;
             resMoney += _factories[4].GetGeneration / 60f;
+
+            saveHandler.StoreResValues(new[]
+            {
+                resEnergy,
+                resMetal,
+                resCrystals,
+                resResearches,
+                resMoney
+            });
+
             UpdateResources();
         }
     }
