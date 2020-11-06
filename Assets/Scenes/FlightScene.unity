@@ -185,7 +185,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &140263892
 GameObject:
@@ -416,7 +416,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &537375360
 GameObject:
@@ -499,123 +499,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537375360}
   m_CullTransparentMesh: 0
---- !u!1 &609508546
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 609508547}
-  - component: {fileID: 609508548}
-  - component: {fileID: 609508549}
-  m_Layer: 0
-  m_Name: GameController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &609508547
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 609508546}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &609508548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 609508546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a0d5e7d77f93dd7931df3cd7ea4e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shipTransform: {fileID: 989831245}
-  startWind: 50
-  gravitation: 9
-  startAirResistance: 0.2
-  horizontalStabilizationK: 0.01
-  rotationSpeedCurrent: 0
-  verticalSpeedCurrent: 200
-  horizontalSpeedCurrent: 0
-  currentWind: 0
-  currentAirResistance: 0
-  verticalPath: 0
-  currentHeight: 0
-  maxHeight: 25000
-  currentOffset: 0
-  maxOffset: 100
-  rotationAccelerationInput: 120
-  shipAccelerationInput: 20
-  cam: {fileID: 519420031}
-  skyGradient:
-    serializedVersion: 2
-    key0: {r: 0.33236915, g: 0.70941097, b: 0.9150943, a: 1}
-    key1: {r: 0.33236915, g: 0.70941097, b: 0.9150943, a: 1}
-    key2: {r: 0.19220929, g: 0.43193227, b: 0.58865774, a: 0}
-    key3: {r: 0.11766017, g: 0.28434512, b: 0.41503057, a: 0}
-    key4: {r: 0.07210238, g: 0.19415297, b: 0.3089251, a: 0}
-    key5: {r: 0.023877297, g: 0.098680295, b: 0.19660738, a: 0}
-    key6: {r: 0.016834643, g: 0.072312705, b: 0.15019718, a: 0}
-    key7: {r: 0.007831969, g: 0.01799734, b: 0.103773594, a: 0}
-    ctime0: 0
-    ctime1: 5243
-    ctime2: 37008
-    ctime3: 51657
-    ctime4: 57632
-    ctime5: 62066
-    ctime6: 64880
-    ctime7: 65535
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 8
-    m_NumAlphaKeys: 2
-  interfaceController: {fileID: 609508549}
---- !u!114 &609508549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 609508546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1282cdf21a93484c49c70a7a7d12c281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  verticalLine: {fileID: 537375361}
-  horizontalLine: {fileID: 1306672950}
-  marks:
-  - {fileID: 1369135113}
-  - {fileID: 1738594065}
-  - {fileID: 692241668}
-  - {fileID: 732753106}
-  - {fileID: 140263893}
-  - {fileID: 752723454}
-  - {fileID: 1517314056}
-  - {fileID: 942544888}
-  heightShipIcon: {fileID: 1720839032}
-  offsetShipIcon: {fileID: 234212712}
 --- !u!1 &692241667
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,7 +740,7 @@ RectTransform:
   - {fileID: 537375361}
   - {fileID: 1306672950}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1097,12 +980,12 @@ GameObject:
   - component: {fileID: 989831245}
   - component: {fileID: 989831244}
   m_Layer: 0
-  m_Name: Ship Sprite
+  m_Name: ShipSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &989831244
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1162,11 +1045,201 @@ Transform:
   m_GameObject: {fileID: 989831243}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1247347423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1247347425}
+  - component: {fileID: 1247347428}
+  - component: {fileID: 1247347427}
+  - component: {fileID: 1247347424}
+  - component: {fileID: 1247347426}
+  m_Layer: 0
+  m_Name: ShipAnimationSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1247347424
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247347423}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 9af1edd4a4d00c2b6b60328c8c900030, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.16}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1247347425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247347423}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1247347426
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247347423}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac384c163bd8a8a58acc8d3e19aac864, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1247347427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247347423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1282cdf21a93484c49c70a7a7d12c281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalLine: {fileID: 537375361}
+  horizontalLine: {fileID: 1306672950}
+  marks:
+  - {fileID: 1369135113}
+  - {fileID: 1738594065}
+  - {fileID: 692241668}
+  - {fileID: 732753106}
+  - {fileID: 140263893}
+  - {fileID: 752723454}
+  - {fileID: 1517314056}
+  - {fileID: 942544888}
+  heightShipIcon: {fileID: 1720839032}
+  offsetShipIcon: {fileID: 234212712}
+  horizontalOffsetIcon: {fileID: 234212713}
+--- !u!114 &1247347428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247347423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a0d5e7d77f93dd7931df3cd7ea4e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipTransform: {fileID: 989831245}
+  startWind: 50
+  gravitation: 9
+  startAirResistance: 0.2
+  rotationSpeedCurrent: 0
+  verticalSpeedCurrent: 200
+  horizontalSpeedCurrent: 0
+  currentWind: 0
+  currentAirResistance: 0
+  verticalPath: 0
+  currentHeight: 0
+  maxHeight: 25000
+  currentOffset: 0
+  maxOffset: 100
+  rotationAccelerationInput: 120
+  shipAccelerationInput: 20
+  cam: {fileID: 519420031}
+  skyGradient:
+    serializedVersion: 2
+    key0: {r: 0.33236915, g: 0.70941097, b: 0.9150943, a: 1}
+    key1: {r: 0.33236915, g: 0.70941097, b: 0.9150943, a: 1}
+    key2: {r: 0.19220929, g: 0.43193227, b: 0.58865774, a: 0}
+    key3: {r: 0.11766017, g: 0.28434512, b: 0.41503057, a: 0}
+    key4: {r: 0.07210238, g: 0.19415297, b: 0.3089251, a: 0}
+    key5: {r: 0.023877297, g: 0.098680295, b: 0.19660738, a: 0}
+    key6: {r: 0.016834643, g: 0.072312705, b: 0.15019718, a: 0}
+    key7: {r: 0.007831969, g: 0.01799734, b: 0.103773594, a: 0}
+    ctime0: 0
+    ctime1: 5243
+    ctime2: 37008
+    ctime3: 51657
+    ctime4: 57632
+    ctime5: 62066
+    ctime6: 64880
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
+  interfaceController: {fileID: 1247347427}
+  animatedShip: {fileID: 1247347424}
+  animatorOfAnimatedShip: {fileID: 1247347426}
 --- !u!1 &1306672949
 GameObject:
   m_ObjectHideFlags: 0

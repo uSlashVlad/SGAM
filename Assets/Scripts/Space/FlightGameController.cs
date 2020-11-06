@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FlightGameController : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class FlightGameController : MonoBehaviour
         Right,
         Middle
     };
+
+    private bool _simulate = false;
 
     /// Contains ship object's transform from scene
     [SerializeField] private Transform shipTransform;
@@ -57,16 +61,22 @@ public class FlightGameController : MonoBehaviour
 
     [Space] [SerializeField] private FlightInterfaceController interfaceController;
 
+    [Space] [SerializeField] private SpriteRenderer animatedShip;
+    [SerializeField] private Animator animatorOfAnimatedShip;
+    private static readonly int End = Animator.StringToHash("End");
+    private static readonly int SkyDeath = Animator.StringToHash("SkyDeath");
+
     private void FixedUpdate()
     {
+        if (!_simulate) return;
+
+        CheckStatus();
+
         RotationProcessing();
         MovementProcessing();
         LateCalculations();
 
-        interfaceController.InterfaceUpdate(
-            heightValue: verticalPath,
-            offsetValue: currentOffset / maxOffset
-        );
+        interfaceController.InterfaceUpdate(verticalPath, currentOffset / maxOffset);
     }
 
     private void RotationProcessing()
@@ -140,5 +150,78 @@ public class FlightGameController : MonoBehaviour
         if (shipRotation > 180 && shipRotation != 360)
             return ShipDirHorizontal.Right;
         return ShipDirHorizontal.Middle;
+    }
+
+    private void CheckStatus()
+    {
+        if (verticalPath >= 1)
+        {
+            if (currentOffset <= maxOffset && currentOffset >= -maxOffset)
+            {
+                // Teleport to quest
+                print("Successful flight! You're going to be teleported to quest");
+                _simulate = false;
+                StartCoroutine(SuccessfulFlightRoutine());
+            }
+            else
+            {
+                // Destroy ship
+                print("Unsuccessful flight! Offset is so huge!");
+                StartCoroutine(ShipDestructionRoutine());
+            }
+        }
+        else if (verticalPath <= -0.1f)
+        {
+            // Destroy ship
+            print("Unsuccessful flight! You hit the ground!");
+            StartCoroutine(ShipDestructionRoutine());
+        }
+    }
+
+    private IEnumerator SuccessfulFlightRoutine()
+    {
+        // Temporary
+        var sceneAsync = SceneManager.LoadSceneAsync("ArenaScene", LoadSceneMode.Single);
+        sceneAsync.allowSceneActivation = false;
+        
+        while (shipTransform.rotation != Quaternion.identity)
+        {
+            shipTransform.rotation =
+                Quaternion.Slerp(shipTransform.rotation, Quaternion.identity, Time.fixedDeltaTime * 5);
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
+        }
+
+        shipTransform.gameObject.SetActive(false);
+        animatedShip.color = Color.white;
+        animatorOfAnimatedShip.SetTrigger(End);
+        
+        // Temporary
+        yield return new WaitForSeconds(5);
+        sceneAsync.allowSceneActivation = true;
+    }
+
+    private IEnumerator ShipDestructionRoutine()
+    {
+        // Temporary
+        var sceneAsync = SceneManager.LoadSceneAsync("CityScene", LoadSceneMode.Single);
+        sceneAsync.allowSceneActivation = false;
+
+        _simulate = false;
+        animatedShip.transform.rotation = shipTransform.rotation;
+        shipTransform.gameObject.SetActive(false);
+        animatedShip.color = Color.white;
+        animatorOfAnimatedShip.SetTrigger(SkyDeath);
+
+        // Temporary
+        yield return new WaitForSeconds(5);
+        sceneAsync.allowSceneActivation = true;
+    }
+
+    // It starts from the animation (at the end)
+    public void StartSimulation()
+    {
+        shipTransform.gameObject.SetActive(true);
+        animatedShip.color = Color.clear;
+        _simulate = true;
     }
 }

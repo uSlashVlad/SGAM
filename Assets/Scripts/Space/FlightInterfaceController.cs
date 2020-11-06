@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class FlightInterfaceController : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class FlightInterfaceController : MonoBehaviour
     // Icons on lines
     [SerializeField] private RectTransform heightShipIcon;
     [SerializeField] private RectTransform offsetShipIcon;
+    [SerializeField] private Image horizontalOffsetIcon;
 
     private void Start()
     {
@@ -46,6 +48,12 @@ public class FlightInterfaceController : MonoBehaviour
     {
         heightShipIcon.localPosition = new Vector2(4, CalculateVerticalPosition(heightValue));
         offsetShipIcon.localPosition = new Vector2(CalculateHorizontalPosition(offsetValue), 6);
+        
+        // For changing colors when ship is outside max offset
+        if ((offsetValue > 1 || offsetValue < -1) && horizontalOffsetIcon.color != Color.red)
+            horizontalOffsetIcon.color = Color.red;
+        else if (offsetValue <= 1 && offsetValue >= -1 && horizontalOffsetIcon.color != Color.white)
+            horizontalOffsetIcon.color = Color.white;
     }
 
     private float CalculateVerticalPosition(float value)
