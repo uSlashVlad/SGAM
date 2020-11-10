@@ -8,7 +8,6 @@ public class SpaceEnemy : MonoBehaviour
     public int enemyValue = 100;
 
     protected Transform PlayerTransform;
-    protected NavMeshAgent NavAgent;
     private Vector3 _prevPos;
     [Space] [SerializeField] private float rotationSpeed = 5;
     

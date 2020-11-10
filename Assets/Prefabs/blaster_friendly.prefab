@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2213137120320155331}
   m_Layer: 0
   m_Name: blaster_friendly
-  m_TagString: Untagged
+  m_TagString: BlasterFriendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
