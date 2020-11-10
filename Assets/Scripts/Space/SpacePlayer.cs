@@ -20,15 +20,15 @@ public class SpacePlayer : MonoBehaviour {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform gunPoint;
 
-    private BuffHandler _buffHandler;
+    [NonSerialized] public BuffHandler buffHandler;
     
 
     public bool tripleShot = false;
 
     private void Start() {
-        _buffHandler = GameObject.FindGameObjectWithTag("BuffHandler").GetComponent<BuffHandler>();
-        if (_buffHandler == null) {
-            Debug.LogError("_buffHandler is null");
+        buffHandler = GameObject.FindGameObjectWithTag("BuffHandler").GetComponent<BuffHandler>();
+        if (buffHandler == null) {
+            Debug.LogError("buffHandler is null");
         }
 
         if (bulletPrefab == null) {
@@ -59,9 +59,9 @@ public class SpacePlayer : MonoBehaviour {
                     
                     var euler = transform.rotation.eulerAngles;
                     var fRotation = Quaternion.Euler(
-                        euler.x, euler.y, euler.z - _buffHandler.tripleShotAngle);
+                        euler.x, euler.y, euler.z - buffHandler.tripleShotAngle);
                     var sRotation = Quaternion.Euler(
-                        euler.x, euler.y, euler.z + _buffHandler.tripleShotAngle);
+                        euler.x, euler.y, euler.z + buffHandler.tripleShotAngle);
                     
                     Instantiate(bulletPrefab, gunPos, fRotation);
                     Instantiate(bulletPrefab, gunPos, sRotation);
@@ -95,11 +95,11 @@ public class SpacePlayer : MonoBehaviour {
         private void OnTriggerEnter2D(Collider2D other) {
             bool buffFlag = false;
             if (other.CompareTag("TripleShot")) {
-                _buffHandler.ActivateTripleShot();
+                buffHandler.ActivateTripleShot();
                 buffFlag = true;
             }
             else if (other.CompareTag("Shield")) {
-                _buffHandler.ActivateShield();
+                buffHandler.ActivateShield();
                 buffFlag = true;
             }
 
