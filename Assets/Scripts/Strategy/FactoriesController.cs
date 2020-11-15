@@ -25,11 +25,11 @@ public class FactoriesController : MonoBehaviour
     };
 
     // Containers for resources values
-    [SerializeField] private float resEnergy;
-    [SerializeField] private float resMetal;
-    [SerializeField] private float resCrystals;
-    [SerializeField] private float resResearches;
-    [SerializeField] private float resMoney;
+    [SerializeField] public float resEnergy;
+    [SerializeField] public float resMetal;
+    [SerializeField] public float resCrystals;
+    [SerializeField] public float resResearches;
+    [SerializeField] public float resMoney;
 
     /// Contains text ui elements on bottom panel.
     /// Just for outputting resources amount to player
@@ -39,12 +39,18 @@ public class FactoriesController : MonoBehaviour
 
     private void Start()
     {
-        var storedValues = saveHandler.LoadResValue();
-        resEnergy = storedValues[0];
-        resMetal = storedValues[1];
-        resCrystals = storedValues[2];
-        resResearches = storedValues[3];
-        resMoney = storedValues[4];
+        var storedResValues = saveHandler.LoadResValue();
+        resEnergy = storedResValues[0];
+        resMetal = storedResValues[1];
+        resCrystals = storedResValues[2];
+        resResearches = storedResValues[3];
+        resMoney = storedResValues[4];
+
+        var storedFactoryLevels = saveHandler.LoadFactoryLevels();
+        for (var i = 0; i < 5; i++)
+        {
+            _factories[i].Level = storedFactoryLevels[i];
+        }
 
         // Initialization for indicators on bottom panel
         UpdateResources();
@@ -67,7 +73,8 @@ public class FactoriesController : MonoBehaviour
             resMetal -= factory.BaseUpgradeRes[1];
             resCrystals -= factory.BaseUpgradeRes[2];
             resResearches -= factory.BaseUpgradeRes[3];
-            factory.Level++;
+
+            saveHandler.StoreFactoryLevel(upgradeNum, ++factory.Level);
 
             UpdatePanelStats(upgradeNum);
             UpdateResources();
@@ -92,15 +99,6 @@ public class FactoriesController : MonoBehaviour
                               $"{factory.GetCost} money for upgrade";
     }
 
-    private void UpdateResources()
-    {
-        resourceInds[0].text = (int) resEnergy + "";
-        resourceInds[1].text = (int) resMetal + "";
-        resourceInds[2].text = (int) resCrystals + "";
-        resourceInds[3].text = (int) resResearches + "";
-        resourceInds[4].text = (int) resMoney + "";
-    }
-
     private IEnumerator ResourcesCoroutine()
     {
         while (true)
@@ -114,23 +112,47 @@ public class FactoriesController : MonoBehaviour
             resResearches += _factories[3].GetGeneration / 60f;
             resMoney += _factories[4].GetGeneration / 60f;
 
-            saveHandler.StoreResValues(new[]
-            {
-                resEnergy,
-                resMetal,
-                resCrystals,
-                resResearches,
-                resMoney
-            });
-
+            StoreResources();
             UpdateResources();
         }
+    }
+
+    public void StoreResources()
+    {
+        saveHandler.StoreResValues(new[]
+        {
+            resEnergy,
+            resMetal,
+            resCrystals,
+            resResearches,
+            resMoney
+        });
+    }
+
+    public void UpdateResources()
+    {
+        resourceInds[0].text = (int) resEnergy + "";
+        resourceInds[1].text = (int) resMetal + "";
+        resourceInds[2].text = (int) resCrystals + "";
+        resourceInds[3].text = (int) resResearches + "";
+        resourceInds[4].text = (int) resMoney + "";
     }
 }
 
 internal class Factory
 {
-    public int Level = 1;
+    private int _level = 1;
+
+    public int Level
+    {
+        get => _level;
+        set
+        {
+            if (value > 1)
+                _level = value;
+        }
+    }
+
     public readonly int TypeId; // 0-energy, 1-metal, 2-crystals, 3-researches, 4-money
     private readonly int _baseGen;
     public readonly int[] BaseUpgradeRes;

@@ -118,7 +118,7 @@ public class FlightGameController : MonoBehaviour
                                       (1 - currentAirResistance);
 
         currentHeight += verticalSpeedCurrent * Time.fixedDeltaTime;
-        currentOffset += horizontalSpeedCurrent * Time.fixedDeltaTime;
+        currentOffset += horizontalSpeedCurrent * Time.fixedDeltaTime + currentWind / 100 * Time.fixedDeltaTime;
         //
         horizontalSpeedCurrent *= 1 - (currentAirResistance / 10);
     }
